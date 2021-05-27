@@ -2,9 +2,11 @@
 
 ## OPNsense Add-on for Splunk
 
-### v1.4.0 <small>Dec 14, 2020</small>
+### v1.4.0 <small>May 27, 2021</small>
 
 * Added modular input to pull system information (Available Updates, Versions, Installed Packages/Plugins).
+* Updated the suricata sourcetyper to recognize the json data without the standard syslog message header.
+* Fixed ipv6 ICMP events not extracting properly - issue [#37](https://github.com/ZachChristensen28/TA-opnsense/issues/37)
 
 ### v1.3.2 <small>Dec 14, 2020</small>
 
