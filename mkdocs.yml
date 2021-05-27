@@ -61,7 +61,7 @@ nav:
       - 'Syslog Configuration': guides/guide-syslog.md
       - 'Intrusion Detection Logging': guides/guide-intrusion-detection.md
       - 'Index Creation': guides/guide-index-creation.md
-      - 'Collect Netflows': guides/guide-collect-netflows.md
+      #- 'Collect Netflows': guides/guide-collect-netflows.md
   - Reference:
       - Sourectypes: reference/reference-sourcetypes.md
       - 'Modular Input Reference': reference/reference-mod-input.md
