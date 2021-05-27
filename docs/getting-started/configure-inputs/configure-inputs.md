@@ -13,7 +13,7 @@ Splunk stores data in indexes. This add-on may be configured to send to a custom
 
 The out of the box Splunk configuration stores all data in the default index, main. It is encouraged to create a new index to ensure optimal performance, for setting retention policies, and for providing stricter access controls. For more information about how Splunk indexes work with add-ons, see [Splunk Docs: Add-ons and indexes](https://docs.splunk.com/Documentation/AddOns/released/Overview/Add-onsandindexes).
 
-OPNsense has a variety of data sources that can be broken up in to separate indexes. For more information and some examples on creating and utilizing indexes see the [Guide: Index Creation](../../../guides/guide-index-creation) in this documentation.
+OPNsense has a variety of data sources that can be broken up in to separate indexes. For more information and some examples on creating and utilizing indexes see the [Guide: Index Utilization](../../../guides/guide-index-utilization) in this documentation.
 
 ## Splunk Universal Forwarder Configuration
 
