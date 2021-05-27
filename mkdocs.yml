@@ -1,0 +1,69 @@
+site_name: OPNsense Add-on for Splunk Documentation
+edit_uri: ""
+repo_url: https://github.com/ZachChristensen28/TA-opnsense
+repo_name: ZachChristensen28/TA-opnsense
+
+plugins:
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true
+  - search
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - attr_list
+  - meta
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - abbr
+  - pymdownx.snippets
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    # - header.autohide
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+extra_css:
+      - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - 'Getting Started':
+      - 'Logging Architecture': getting-started/logging-architecture.md
+      - 'Where to Install': getting-started/where-to-install.md
+      - 'Configure Inputs':
+          - 'Configure Universal Forwarder': getting-started/configure-inputs/configure-inputs.md
+          - 'Configure Modular Input': getting-started/configure-inputs/configure-modinput.md
+      - 'Configure Enrichment': getting-started/configure-enrichment.md
+      - Troubleshooting:
+          - 'Troubleshoot Monitoring Inputs': getting-started/troubleshooting/troubleshoot-inputs.md
+          - 'Troubleshoot Modular Input': getting-started/troubleshooting/troubleshoot-modinputs.md
+  - Guides:
+      - 'Syslog Configuration': guides/guide-syslog.md
+      - 'Intrusion Detection Logging': guides/guide-intrusion-detection.md
+      - 'Index Utilization': guides/guide-index-utilization.md
+      #- 'Collect Netflows': guides/guide-collect-netflows.md
+  - Reference:
+      - Sourectypes: reference/reference-sourcetypes.md
+      - 'Modular Input Reference': reference/reference-mod-input.md
+      - Changelog: 
+          - Releases: reference/releases/index.md
