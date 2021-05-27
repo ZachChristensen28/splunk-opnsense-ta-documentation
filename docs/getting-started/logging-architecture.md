@@ -21,6 +21,6 @@ Distributed deployments consist of separate instances for indexers and search he
 
 ## Basic Logging Diagram
 
-![Placeholder](../../images/opnsense-log-architecture.png){ loading=lazy width=350 }
+![Placeholder](../images/opnsense-log-architecture.png){ loading=lazy width=350 }
 
 --8<-- "includes/abbreviations.md"
