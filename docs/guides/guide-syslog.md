@@ -24,24 +24,119 @@ The default rsyslog configuration file is located in `/etc/rsyslog.conf`.
 
 Open the rsyslog configuration file with your favorite text editor. Place the following in the configuration file or uncomment if already present:
 
+#### Load Modules
+
+Load in the appropriate modules for TCP/UDP
+
 ```shell
-# /etc/rsyslog.conf
-
-# Load Modules
 module(load="imudp") # provides UDP syslog reception
+```
 
+#### File Permissions
+
+The following sets file permissions to `root:splunk`. 
+
+```shell
 # OMFILE Global Permissions
 module(load="builtin:omfile" dirCreateMode="0750" dirOwner="root" dirGroup="splunk" fileCreateMode="0640" fileOwner="root" fileGroup="splunk")
 
-# DynaFile Template
-template(name="t_opnsense" type="string" string="/var/log/remote/opnsense/%hostname%/opnsense.log")
+# Legacy Permissions
+$umask 0027
+$DirCreateMode 0750
+$FileCreateMode 0640
+$DirGroup splunk
+$FileGroup splunk
+```
 
-# ruleset
-ruleset(name="r_opnsense" queue.type="linkedlist"){
-  action(type="omfile" dynaFile="t_opnsense")
+#### Event Format Template
+
+The following is a standard example of how to set a template for an event format. This helps to standardize the logs to work better with Splunk.
+
+```shell
+# Event Template
+template(name="t_default" type="list") {
+    property(name="timestamp" dateFormat="rfc3339")
+    constant(value=" ")
+    property(name="fromhost") # can also be set to 'hostname'
+    constant(value=" ")
+    property(name="syslogtag")
+    property(name="msg" spifno1stsp="on")
+    property(name="msg" droplastlf="on")
+    constant(value="\n")
 }
+```
 
-# Use port 514 for OPNsense data
+This will create events similar to the following:
+
+```shell
+2020-02-16T22:47:31-00:00 myserver-003 named[32422]: 136299 10.0.0.5/48300 reply apps.splunk.com is 52.41.47.241
+```
+
+#### Dynamic File Templates
+
+Create reusable templates for easy change-management
+
+```shell
+template (name="t_opnsense_filterlog" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/filterlog.log")
+template (name="t_opnsense_suricata" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/suricata.log")
+template (name="t_opnsense_openvpn" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/openvpn.log")
+template (name="t_opnsense_cron" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/cron.log")
+template (name="t_opnsense_squid" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/squid.log")
+template (name="t_opnsense_lighttpd" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/lighttpd.log")
+template (name="t_opnsense_dhcpd" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/dhcpd.log")
+template (name="t_opnsense_catchall" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/catchall.log")
+```
+
+#### Create rulesets
+
+Rulesets can be useful to chain incoming logs to a specific set of rules.
+
+```shell
+ruleset(name="r_opnsense") {
+  if $programname == 'filterlog' then {
+    action(type="omfile" dynaFile="t_opnsense_filterlog")
+    stop
+  }
+
+  if $programname == 'suricata' then {
+    action(type="omfile" dynaFile="t_opnsense_suricata")
+    stop
+  }
+
+  if $programname == 'openvpn' then {
+    action(type="omfile" dynaFile="t_opnsense_openvpn")
+    stop
+  }
+
+  if $programname == 'cron' then {
+    action(type="omfile" dynaFile="t_opnsense_cron")
+    stop
+  }
+
+  if $programname == 'squid' then {
+    action(type="omfile" dynaFile="t_opnsense_squid")
+    stop
+  }
+
+  if $programname == 'lighttpd' then {
+    action(type="omfile" dynaFile="t_opnsense_lighttpd")
+    stop
+  }
+
+  if $programname == 'dhcpd' then {
+    action(type="omfile" dynaFile="t_opnsense_dhcpd")
+    stop
+  }
+
+  *.*   action(type="omfile" dynaFile="t_opnsense_catchall")
+}
+```
+
+#### Input Configuration
+
+Inputs can be specified with a ruleset to tie them to the previously create rules.
+
+```shell
 input(type="imudp" port="514" ruleset="r_opnsense")
 ```
 
@@ -49,14 +144,136 @@ Once the above has been configured, Save & Close the file. Then restart the rsys
 
 `systemctl restart rsyslog`
 
-Verify rsyslog is running with: `service rsyslog status`
+Verify rsyslog is running with: `systemctl status rsyslog`
 
-The above will create a new file in `/var/log/remote` which a Splunk Forwarder can monitor and forward to the Splunk Indexers.
+
+??? example "Full Example"
+    ```shell
+    # /etc/rsyslog.conf configuration file for rsyslog
+    #
+    # For more information install rsyslog-doc and see
+    # /usr/share/doc/rsyslog-doc/html/configuration/index.html
+    #
+    # Default logging rules can be found in /etc/rsyslog.d/50-default.conf
+
+
+    #################
+    #### MODULES ####
+    #################
+
+    module(load="imuxsock") # provides support for local system logging
+    #module(load="immark")  # provides --MARK-- message capability
+
+    # provides UDP syslog reception
+    module(load="imudp")
+    # input(type="imudp" port="514")
+
+    # provides TCP syslog reception
+    #module(load="imtcp")
+    #input(type="imtcp" port="514")
+
+    # provides kernel logging support and enable non-kernel klog messages
+    module(load="imklog" permitnonkernelfacility="on")
+
+    ###########################
+    #### GLOBAL DIRECTIVES ####
+    ###########################
+    #
+    # OMFILE Global Permissions
+    module(load="builtin:omfile" dirCreateMode="0750" dirOwner="root" dirGroup="splunk" fileCreateMode="0640" fileOwner="root" fileGroup="splunk")
+
+    # Legacy Permissions
+    $umask 0027
+    $DirCreateMode 0750
+    $FileCreateMode 0640
+    $DirGroup splunk
+    $FileGroup splunk
+
+    # Event Template
+    template(name="t_default" type="list") {
+        property(name="timestamp" dateFormat="rfc3339")
+        constant(value=" ")
+        property(name="fromhost") # can also be set to 'hostname'
+        constant(value=" ")
+        property(name="syslogtag")
+        property(name="msg" spifno1stsp="on")
+        property(name="msg" droplastlf="on")
+        constant(value="\n")
+    }
+
+    #
+    # Use traditional timestamp format.
+    # To enable high precision timestamps, comment out the following line.
+    #
+    # $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+
+    # Filter duplicated messages
+    $RepeatedMsgReduction on
+
+    # DynaFile Templates
+    template (name="t_opnsense_filterlog" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/filterlog.log")
+    template (name="t_opnsense_suricata" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/suricata.log")
+    template (name="t_opnsense_openvpn" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/openvpn.log")
+    template (name="t_opnsense_cron" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/cron.log")
+    template (name="t_opnsense_squid" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/squid.log")
+    template (name="t_opnsense_lighttpd" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/lighttpd.log")
+    template (name="t_opnsense_dhcpd" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/dhcpd.log")
+    template (name="t_opnsense_catchall" type="string" string="/var/log/remote/opnsense/%HOSTNAME%/catchall.log")
+
+    ruleset(name="r_opnsense") {
+      if $programname == 'filterlog' then {
+        action(type="omfile" dynaFile="t_opnsense_filterlog")
+        stop
+      }
+
+      if $programname == 'suricata' then {
+        action(type="omfile" dynaFile="t_opnsense_suricata")
+        stop
+      }
+
+      if $programname == 'openvpn' then {
+        action(type="omfile" dynaFile="t_opnsense_openvpn")
+        stop
+      }
+
+      if $programname == 'cron' then {
+        action(type="omfile" dynaFile="t_opnsense_cron")
+        stop
+      }
+
+      if $programname == 'squid' then {
+        action(type="omfile" dynaFile="t_opnsense_squid")
+        stop
+      }
+
+      if $programname == 'lighttpd' then {
+        action(type="omfile" dynaFile="t_opnsense_lighttpd")
+        stop
+      }
+
+      if $programname == 'dhcpd' then {
+        action(type="omfile" dynaFile="t_opnsense_dhcpd")
+        stop
+      }
+
+      *.*   action(type="omfile" dynaFile="t_opnsense_catchall")
+    }
+
+    input(type="imudp" port="514" ruleset="r_opnsense")
+    #
+    # Where to place spool and state files
+    #
+    $WorkDirectory /var/spool/rsyslog
+    #
+    # Include all config files in /etc/rsyslog.d/
+    #
+    $IncludeConfig /etc/rsyslog.d/*.conf
+    ```
 
 ### Troubleshooting
 
-- Ensure firewall rules are configured to allow the rsyslog listening port (514/udp)
-- Ensure SELinux is not blocking rsyslog from writing to the file. This may occur if you write data outside of `/var/log`.
+* Ensure firewall rules are configured to allow the rsyslog listening port (514/udp)
+* Ensure SELinux is not blocking rsyslog from writing to the file. This may occur if you write data outside of `/var/log`.
 
 ## Basic Log Rotation Strategy for syslog server
 
@@ -71,19 +288,21 @@ Add the following to the file.
 ```SHELL
 /var/log/remote/opnsense/*/*.log
 {
-        rotate 7
-        daily
-        missingok
-        create 0640 root splunk
-        notifempty
-        compress
-        dateext
-        dateformat -%Y-%m-%d
-        dateyesterday
-        sharedscripts
-        postrotate
-                /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
-        endscript
+  rotate 7
+  daily
+  missingok
+  create 0640 root splunk
+  notifempty
+  compress
+  createolddir 750 root splunk
+  olddir /var/log/remote/old
+  dateext
+  dateformat -%Y-%m-%d
+  dateyesterday
+  sharedscripts
+  postrotate
+          /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
+  endscript
 }
 ```
 
