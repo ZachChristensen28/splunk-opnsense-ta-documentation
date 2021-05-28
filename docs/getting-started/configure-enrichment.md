@@ -34,7 +34,7 @@ Once installed, the lookup editor can be used to create a new CSV lookup.
 1. Create column headers (row 1). These headers will be referenced later.
 1. Populate the remaing rows with the interface name mappings.
 
-    ???+ tip "Example"
+    ???+ example
     
         interface | interface_name
         --------- | --------------
@@ -54,7 +54,7 @@ A lookup file can be created outside of Splunk and then uploaded via the web int
 1. Create column headers (row 1). These headers will be referenced later.
 1. Populate the remaing rows with the interface name mappings.
 
-    ???+ tip "Example"
+    ???+ example
 
         <small>opn_interfaces.csv</small>
 
@@ -107,7 +107,7 @@ After the Lookup definition has been created, an automatic lookup has to be conf
 1. For the "Apply to" field, select sourcetype and type `opnsense:filterlog`.
 1. For the input fields, first specify the interface field from the created lookup. Then type `dest_int` for the second field.
 
-    ???+ tip "Example"
+    ???+ example
         `field_from_lookup` = `dest_int`
         
         ```text
@@ -116,7 +116,7 @@ After the Lookup definition has been created, an automatic lookup has to be conf
 
 1. For the output fields, first specify the interface name field from the created lookup. Then type `dest_int_name` for the second field.
 
-    ???+ tip "Example"
+    ???+ example
         `field_from_lookup` = `dest_int_name`
 
         ```text
