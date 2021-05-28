@@ -5,7 +5,7 @@
 ### v1.4.1 <small>May 27, 2021</small>
 
 * Fixed incorrect sourcetype transform for modular input - issue [#41](https://github.com/ZachChristensen28/TA-opnsense/issues/41)
-*Increased the truncate limit to allow large events.
+* Increased the truncate limit to allow large events.
 
 ### v1.4.0 <small>May 27, 2021</small>
 
