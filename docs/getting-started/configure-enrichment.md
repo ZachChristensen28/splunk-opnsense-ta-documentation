@@ -36,12 +36,14 @@ Once installed, the lookup editor can be used to create a new CSV lookup.
 
     ???+ example
     
-        interface | interface_name
-        --------- | --------------
-        em0 | LAN
-        em1 | WAN
-        vmx1 | IOT
-        wg0 | WIREGUARD
+        host | interface | interface_name
+        ---- | --------- | --------------
+        opnsense-01 | em0 | LAN
+        opnsense-01 | em1 | WAN
+        opnsense-01 | vmx1 | IOT
+        opnsense-01 | wg0 | WIREGUARD
+        opnsense-02 | vmx1 | LAN
+        opnsense-02 | vmx2 | WAN
         
 1. After saving, move to [Create a Lookup Definition](#create-a-lookup-definition).
 
@@ -59,11 +61,13 @@ A lookup file can be created outside of Splunk and then uploaded via the web int
         <small>opn_interfaces.csv</small>
 
         ```text
-        interface,interface_name
-        em0,LAN
-        em1,WAN
-        vmx1,IOT
-        wg0,WIREGUARD
+        host,interface,interface_name
+        opnsense-01,em0,LAN
+        opnsense-01,em1,WAN
+        opnsense-01,vmx1,IOT
+        opnsense-01,wg0,WIREGUARD
+        opnsense-02,vmx1,LAN
+        opnsense-02,vmx2,WAN
         ```
 
 1. Be sure to save the file with a `.csv` extension.
@@ -113,6 +117,11 @@ After the Lookup definition has been created, an automatic lookup has to be conf
         ```text
         interface = dest_int
         ```
+
+1. For the next input field, set `host` equal to a blank field. There is no need to rename this field.
+
+    ???+ example
+        `host` = 
 
 1. For the output fields, first specify the interface name field from the created lookup. Then type `dest_int_name` for the second field.
 
