@@ -2,6 +2,10 @@
 
 ## OPNsense Add-on for Splunk
 
+### v1.4.2 <small>TODO</small>
+
+!!! todo
+
 ### v1.4.1 <small>May 27, 2021</small>
 
 * Fixed incorrect sourcetype transform for modular input - issue [#41](https://github.com/ZachChristensen28/TA-opnsense/issues/41)
