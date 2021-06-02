@@ -33,8 +33,14 @@ The OPNsense Add-on for Splunk must be set to visible in order to configure the 
 
 #### Obtain CA Certificate
 
+The Certificate Authority (CA) certificate can be used to verify authenticity of the device you are connecting to. 
+
 1. Log in to the OPNsense web interface.
 1. Navigate to System > Trust > Authorities.
+
+    ??? question "Not Seeing any Certificates?"
+        If no certificates show up in this view, this could mean that you are using the default self-signed Web certificate from OPNsense. If this is the case, skip these steps and ensue the "Verify Certificate" checkbox is **not** checked when setting up the modular input. For better security, it is recommended to create a new certificate for the OPNsense web interface (see [OPNsense Documentation](https://docs.opnsense.org/manual/certificates.html) for more information).
+
 1. Export the CA cert of the Authority being used for the web interface.
 1. Place the CA Certificate into `$SPLUNK_HOME/etc/auth`. It may be easier to create a new directory to keep this certificate separate <small>(i.e. `$SPLUNK_HOME/etc/auth/opnsense_certs`)</small>.
 
