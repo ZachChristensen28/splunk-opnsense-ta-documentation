@@ -2,9 +2,10 @@
 
 ## OPNsense Add-on for Splunk
 
-### v1.4.2 <small>TODO</small>
+### v1.4.2 <small>June 2, 2021</small>
 
-!!! todo
+* Adding support for absolute paths in modular input setup for certificates - [#44](https://github.com/ZachChristensen28/TA-opnsense/issues/44)
+* Fixed issue with the Verify Certificate checkbox not working properly - [#47](https://github.com/ZachChristensen28/TA-opnsense/issues/47)
 
 ### v1.4.1 <small>May 27, 2021</small>
 
