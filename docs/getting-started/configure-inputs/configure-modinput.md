@@ -33,7 +33,7 @@ The OPNsense Add-on for Splunk must be set to visible in order to configure the 
 
 #### Obtain CA Certificate
 
-The Certificate Authority (CA) certificate can be used to verify authenticity of the device you are connecting to. 
+The Certificate Authority (CA) certificate can be used to verify authenticity of the device you are connecting to.
 
 1. Log in to the OPNsense web interface.
 1. Navigate to System > Trust > Authorities.
@@ -75,9 +75,9 @@ At least one account is needed for the modular input to work.
 
 1. Navigate to the Input tab.
 1. Click "Create New Input"
-1. For the selected input, enter a unique name, index, and an interval to run in seconds. <small>_The Default is 43200 seconds (12 hours)_</small>.
+1. For the selected input, enter a unique name, index, and an interval to run in seconds or a valid cron schedule.
 1. Select the correct account credentials for the input.
-6. Click add.
+1. Click add.
 
 ### Verify
 

@@ -2,6 +2,12 @@
 
 ## OPNsense Add-on for Splunk
 
+### v1.4.3 <small>July 8, 2021</small>
+
+* fixed script to initial an upgrade check - [#49](https://github.com/ZachChristensen28/TA-opnsense/issues/49)
+* added ability to use a cron schedule for the modular input interval - [#52](https://github.com/ZachChristensen28/TA-opnsense/issues/52)
+* added ability to specify port number for modular input - [#53](https://github.com/ZachChristensen28/TA-opnsense/issues/53)
+
 ### v1.4.2 <small>June 2, 2021</small>
 
 * Adding support for absolute paths in modular input setup for certificates - [#44](https://github.com/ZachChristensen28/TA-opnsense/issues/44)
