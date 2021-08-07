@@ -1,6 +1,6 @@
 # Configure Enrichment
 
-??? info "Optional Step"
+???+ info "Optional Step"
     Mapping interfaces to their names can help in being able to quickly identify them in Splunk (i.e. `vmx0` -> `LAN`). This step can be skipped if enrichment is not required.
 
 The steps to setup enrichment for this add-on utilize Splunk Lookups. For more information on lookups see [Splunk Docs: About lookups](https://docs.splunk.com/Documentation/Splunk/latest/Knowledge/Aboutlookupsandfieldactions).
@@ -30,12 +30,12 @@ Once installed, the lookup editor can be used to create a new CSV lookup.
 1. Click "Create a New Lookup" > CSV lookup.
 1. Give the lookup a descriptive name <small>(i.e. opn_interfaces.csv)</small>.
 1. Choose which App context this lookup will be stored in <small>(i.e. Search & Reporting)</small>.
-1. Leave the "User-only" box **uncheked**. This will give the lookup the global scope permissions it needs. 
+1. Leave the "User-only" box **uncheked**. This will give the lookup the global scope permissions it needs.
 1. Create column headers (row 1). These headers will be referenced later.
 1. Populate the remaing rows with the interface name mappings.
 
     ???+ example
-    
+
         host | interface | interface_name
         ---- | --------- | --------------
         opnsense-01 | em0 | LAN
@@ -44,7 +44,7 @@ Once installed, the lookup editor can be used to create a new CSV lookup.
         opnsense-01 | wg0 | WIREGUARD
         opnsense-02 | vmx1 | LAN
         opnsense-02 | vmx2 | WAN
-        
+
 1. After saving, move to [Create a Lookup Definition](#create-a-lookup-definition).
 
 
@@ -113,7 +113,7 @@ After the Lookup definition has been created, an automatic lookup has to be conf
 
     ???+ example
         `field_from_lookup` = `dest_int`
-        
+
         ```text
         interface = dest_int
         ```
@@ -121,7 +121,7 @@ After the Lookup definition has been created, an automatic lookup has to be conf
 1. For the next input field, set `host` equal to a blank field. There is no need to rename this field.
 
     ???+ example
-        `host` = 
+        `host` =
 
 1. For the output fields, first specify the interface name field from the created lookup. Then type `dest_int_name` for the second field.
 
