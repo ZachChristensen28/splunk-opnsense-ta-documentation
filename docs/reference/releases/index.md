@@ -2,6 +2,15 @@
 
 ## OPNsense Add-on for Splunk
 
+### v1.5.0 <small>Aug 7, 2021</small>
+
+!!! warning
+    This version includes packages for the new version of Add-on builder (v4.0.0) which may cause API credentials to no longer work after updating. After updating to this version, you may have to re-enter the API credentials for the modular inputs to work again by editing the existing account configurations.
+
+* deprecating sourcetype "opnsense:access" and moving to "opnsense:audit"
+* updated CIM mapping for Authentication events
+* updated to latest add-on builder version
+
 ### v1.4.3 <small>July 8, 2021</small>
 
 * fixed script to initial an upgrade check - [#49](https://github.com/ZachChristensen28/TA-opnsense/issues/49)
