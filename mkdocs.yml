@@ -19,6 +19,10 @@ markdown_extensions:
   - pymdownx.superfences
   - abbr
   - pymdownx.snippets
+  - pymdownx.critic
+  - pymdownx.tilde
+  - pymdownx.mark
+  - pymdownx.caret
 
 theme:
   name: material
@@ -65,5 +69,5 @@ nav:
   - Reference:
       - Sourectypes: reference/reference-sourcetypes.md
       - 'Modular Input Reference': reference/reference-mod-input.md
-      - Changelog: 
+      - Changelog:
           - Releases: reference/releases/index.md

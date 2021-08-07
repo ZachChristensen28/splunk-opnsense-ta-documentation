@@ -2,10 +2,10 @@
 
 Below are a list of sourcetypes which this Add-on uses. It is not necessary to manually set the sourcetype to anything other than `opnsense` as this add-on will automatically transform the sourcetype to the appropriate value.
 
-
 Source type | Description | CIM Mapping
 ----------- | ----------- | -----------
-`opnsense:access` | Access Events to OPNsense firewall. | [Authentication](https://docs.splunk.com/Documentation/CIM/latest/User/Authentication)
+{--opnsense:access--} _deprecated v1.5.0_ | Access Events to OPNsense firewall. | [Authentication](https://docs.splunk.com/Documentation/CIM/latest/User/Authentication)
+{++opnsense:audit++} _new v1.5.0_ | Audit Events to OPNsense firewall (logins/changes). | [Authentication](https://docs.splunk.com/Documentation/CIM/latest/User/Authentication)
 `opnsense:cron` | Cron Events | None
 `opnsense:dhcpd` | DHCP Events | [Network Sessions](https://docs.splunk.com/Documentation/CIM/latest/User/NetworkSessions)
 `opnsense:filterlog` | Filterlog Events | [Network Traffic](https://docs.splunk.com/Documentation/CIM/latest/User/NetworkTraffic)
