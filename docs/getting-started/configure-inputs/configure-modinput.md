@@ -22,16 +22,20 @@ The OPNsense Add-on for Splunk must be set to visible in order to configure the 
 
 * Obtain [API Credentials](#obtain-api-credentials).
 * FQDN/IP of the OPNsense instance (multiple instances may be setup through the interface).
-* (Recommended) [CA Certificate for OPNsense instance](#obtain-ca-certificate).
-* Splunk must be able to communicate to the firewall directly via port 443/tcp or through a proxy.
+* <small>(Optional) (Recommended)</small> [CA Certificate for OPNsense instance](#obtain-ca-certificate).
+* Splunk must be able to communicate to the firewall directly through the web port <small>(default 443/tcp)</small> or through a proxy.
 
 #### Obtain API Credentials
+
+!!! attention "Required"
 
 1. Log in to the OPNsense web interface.
 1. Navigate to System > Access > Users
 1. create a new user or edit an existing user. At the `API keys` section, click the "+" to create new API credentials. This downloads an "apikey.txt" file containing the credentials for the API. These will be needed for later steps.
 
-#### Obtain CA Certificate
+#### Obtain CA Certificate 
+
+!!! info "Optional"
 
 The Certificate Authority (CA) certificate can be used to verify authenticity of the device you are connecting to.
 
@@ -48,7 +52,9 @@ The Certificate Authority (CA) certificate can be used to verify authenticity of
 
 At least one account is needed for the modular input to work.
 
-1. Verify Prerequisites have been completed before proceeding.
+![Account Setup](../../images/ta-opnsense-addon-account.png){ loading=lazy width=500 align=right }
+
+1. Verify [Prerequisites](#add-on-prerequisites) have been completed before proceeding.
 1. Log in to the Splunk web interface.
 1. Navigate to the OPNsense Add-on for Splunk > Configuration (Tab).
 
@@ -59,6 +65,7 @@ At least one account is needed for the modular input to work.
 1. Enter a name for the account.
 1. Enter the [API credentials](#obtain-api-credentials) previously created.
 1. Enter the IP/FQDN of the OPNsense instance.
+1. Enter the port number <small>(default 443)</small>.
 1. <small>(Optional)</small> Enter the certificate path relative to `$SPLUNK_HOME/etc/auth` or as an absolute path.
 
     ???+ example
@@ -70,6 +77,8 @@ At least one account is needed for the modular input to work.
 1. Click add.
 1. <small>_(optional)_</small> Configure proxy
 1. <small>_(optional)_</small> Set logging level
+
+![Input Setup](../../images/ta-opnsense-addon-inputs.png){ loading=lazy width=500 align=right }
 
 ### Create Input
 
