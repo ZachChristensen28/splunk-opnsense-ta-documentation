@@ -1,5 +1,7 @@
 # Log Collection Architecture
 
+![Logging Architecture](../images/opnsense-log-architecture.png){ loading=lazy width=350 align=right}
+
 The following diagram shows a basic logging architecture to get data from the OPNsense firewall to Splunk. For more information on installation see [Where to install](../where-to-install/).
 
 ## Syslog Server Considerations
@@ -13,14 +15,10 @@ This documentation will provide steps on configuring inputs from data being coll
 
 ## Single instance deployment
 
-When you install this add-on to a single Splunk Enterprise instance, that instance serves as both search head and indexer and provides both search and storage capability. A single instance deployment can support a few users running concurrent searches, which is ideal for a small test environment. 
+When you install this add-on to a single Splunk Enterprise instance, that instance serves as both search head and indexer and provides both search and storage capability. A single instance deployment can support a few users running concurrent searches, which is ideal for a small test environment.
 
 ## Distributed deployment
 
-Distributed deployments consist of separate instances for indexers and search heads. In both single instance and distributed deployments using a universal forwarder to get data in is recommended. 
-
-## Basic Logging Diagram
-
-![Placeholder](../images/opnsense-log-architecture.png){ loading=lazy width=350 }
+Distributed deployments consist of separate instances for indexers and search heads. In both single instance and distributed deployments using a universal forwarder to get data in is recommended.
 
 --8<-- "includes/abbreviations.md"
