@@ -25,7 +25,8 @@ The TA-opnsense modular input will interact with the OPNsense API using GET requ
 
 1. Log in to the OPNsense web interface.
 1. Navigate to System > Access > Users.
-1. Create a new user or edit an existing user. At the `API keys` section, click the "+" to create new API credentials. This downloads an "apikey.txt" file containing the credentials for the API. **These will be used in later steps**.
+1. Create a new user or edit an existing user.
+1. Scroll down to the `API keys` section, click the "+" to create new API credentials. This downloads an "apikey.txt" file containing the credentials for the API. **These will be used in later steps**.
 
 ### Obtain CA Certificate
 
@@ -84,7 +85,9 @@ At least one account is needed for the modular input to work.
 1. An [account](#create-account) is needed before proceeding.
 1. Navigate to the Input tab.
 1. Click "Create New Input."
-1. For the selected input, enter a unique name, index, and an interval to run in seconds or a valid cron schedule.
+1. Enter a unique name.
+1. Set an interval to run in seconds or a valid cron schedule.
+1. Select an index.
 1. Select the correct account credentials for the input.
 1. Click add.
 
