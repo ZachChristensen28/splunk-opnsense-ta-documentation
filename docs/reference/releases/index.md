@@ -2,9 +2,20 @@
 
 ## OPNsense Add-on for Splunk
 
+### v1.5.1 <small>Nov 30, 2021</small>
+
+???+ warning
+    **_Only applies if you are upgrading from a version < 1.5.0_**
+
+    This version includes packages for the new version of Add-on builder (v4.0.0) which may cause API credentials to no longer work after updating. After updating to this version, you may have to re-enter the API credentials for the modular inputs to work again by editing the existing account configurations.
+
+- Updating field extractions for Suricata events in Drop mode - [#58](https://github.com/ZachChristensen28/TA-opnsense/issues/58)
+- Adding default allowed action for suricata events
+- Fixed certificate issue when no cert checking is enabled - [#61](https://github.com/ZachChristensen28/TA-opnsense/issues/61)
+
 ### v1.5.0 <small>Aug 7, 2021</small>
 
-!!! warning
+???+ warning
     This version includes packages for the new version of Add-on builder (v4.0.0) which may cause API credentials to no longer work after updating. After updating to this version, you may have to re-enter the API credentials for the modular inputs to work again by editing the existing account configurations.
 
 * deprecating sourcetype "opnsense:access" and moving to "opnsense:audit"
