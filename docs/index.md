@@ -21,7 +21,7 @@ This documentation assumes the following:
 
 Info | Description
 ------|----------
-Version | 1.5.0 - [Splunkbase](https://splunkbase.splunk.com/app/4538/) \| [GitHub](https://github.com/ZachChristensen28/TA-opnsense)
+Version | 1.5.1 - [Splunkbase](https://splunkbase.splunk.com/app/4538/) \| [GitHub](https://github.com/ZachChristensen28/TA-opnsense)
 Vendor Product Version | [OPNsense® 21.7](https://opnsense.org/)
 
 [Get Started](getting-started/logging-architecture){ .md-button .md-button--primary }
