@@ -26,6 +26,8 @@ markdown_extensions:
 
 theme:
   name: material
+  logo: images/opn_ta_logo.png
+  favicon: images/opn_ta_logo.png
   icon:
     repo: fontawesome/brands/github
   features:
@@ -41,14 +43,14 @@ theme:
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/lightbulb-outline
+        icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: red
       accent: red
       toggle:
-        icon: material/lightbulb
+        icon: material/weather-sunny
         name: Switch to light mode
 
 nav:

@@ -9,7 +9,7 @@ The TA-opnsense modular input will interact with the OPNsense API using GET requ
 1. [Create Input](#create-input)
 
 ???+ info "Tested Versions"
-    OPNsense **v21.1**
+    OPNsense **v21.7**
 
     Add-on Version **1.4.0**
 
