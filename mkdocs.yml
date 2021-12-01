@@ -53,6 +53,15 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
 
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/zachary-christensen28/
+    - icon: fontawesome/brands/github
+      link: https://github.com/ZachChristensen28
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/ZachTheSplunker
+
 nav:
   - Home: index.md
   - 'Getting Started':
