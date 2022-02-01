@@ -10,7 +10,7 @@ The following will walk through an example of setting up syslog using Rsyslog. S
 
 ## Data on-boarding using Rsyslog
 
-[Rsyslog](https://www.rsyslog.com) is a default package on most linux distros. The OPNsense firewall can be setup to send logs via syslog to a configured Rsyslog server for a Splunk Forwarder to monitor. Below is a basic configuration to get started with data on-boarding. 
+[Rsyslog](https://www.rsyslog.com) is a default package on most linux distros. The OPNsense firewall can be setup to send logs via syslog to a configured Rsyslog server for a Splunk Forwarder to monitor. Below is a basic configuration to get started with data on-boarding.
 
 !!! note
     The following does not reflect rsyslog best practices but could be used as a starting point.
@@ -34,7 +34,7 @@ module(load="imudp") # provides UDP syslog reception
 
 #### File Permissions
 
-The following sets file permissions to `root:splunk`. 
+The following sets file permissions to `root:splunk`.
 
 ```shell
 # OMFILE Global Permissions
@@ -146,9 +146,9 @@ Once the above has been configured, Save & Close the file. Then restart the rsys
 
 Verify rsyslog is running with: `systemctl status rsyslog`
 
-
 ??? example "Full Example"
-    ```shell
+
+    ```bash title="/etc/rsyslog.conf"
     # /etc/rsyslog.conf configuration file for rsyslog
     #
     # For more information install rsyslog-doc and see
@@ -285,7 +285,7 @@ Start by creating a new file in `/etc/logrotate.d`. For this example, we will us
 
 Add the following to the file.
 
-```SHELL
+```bash title="/etc/logrotate.d/opnsense"
 /var/log/remote/opnsense/*/*.log
 {
   rotate 7
@@ -317,14 +317,16 @@ Administrator access to the OPNsense Web GUI will be required to perform the fol
 1. Log into the OPNsense firewall.
 1. Navigate to: System > Settings > Logging/targets.
 1. Click the `+` (plus sign) to add a new syslog destination.
-  - Ensure the `Enabled` checkbox is checked.
-  - Transport = UDP(4)
-  - Applications = (Leave Blank) to select everything
-  - Levels = (Leave default setting)
-  - Facilities = (Leave Blank) to select everything
-  - Hostname = FQDN or IP of the syslog server configured in previous steps.
-  - Port = 514
-  - Description = <small>(Optional)</small>
+
+* Ensure the `Enabled` checkbox is checked.
+* Transport = UDP(4)
+* Applications = (Leave Blank) to select everything
+* Levels = (Leave default setting)
+* Facilities = (Leave Blank) to select everything
+* Hostname = FQDN or IP of the syslog server configured in previous steps.
+* Port = 514
+* Description = <small>(Optional)</small>
+
 1. Click Save
 1. Click Apply
 

@@ -89,4 +89,5 @@ nav:
       - Sourectypes: reference/reference-sourcetypes.md
       - Modular Input Reference: reference/reference-mod-input.md
       - Changelog:
-          - Releases: reference/releases/index.md
+          - Release Notes: reference/releases/index.md
+          - Release History: reference/releases/release-history.md
