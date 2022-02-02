@@ -47,7 +47,6 @@ Once installed, the lookup editor can be used to create a new CSV lookup.
 
 1. After saving, move to [Create a Lookup Definition](#create-a-lookup-definition).
 
-
 ### Method 2 - Create and Upload a new CSV file
 
 A lookup file can be created outside of Splunk and then uploaded via the web interface.
@@ -58,9 +57,7 @@ A lookup file can be created outside of Splunk and then uploaded via the web int
 
     ???+ example
 
-        <small>opn_interfaces.csv</small>
-
-        ```text
+        ```text title="opn_interfaces.csv"
         host,interface,interface_name
         opnsense-01,em0,LAN
         opnsense-01,em1,WAN

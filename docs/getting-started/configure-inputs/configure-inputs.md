@@ -26,8 +26,7 @@ Install the UF according to [Splunk Docs: Install the Universal Forwarder](https
 
 Once installed the configurations can be made. The following is a sample inputs.conf that can be pushed using a deployment server or configured on the UF itself.
 
-```shell
-# inputs.conf
+```cfg title="inputs.conf"
 [monitor:///var/log/remote/opnsense]
 disabled = 0
 host_segment = 5

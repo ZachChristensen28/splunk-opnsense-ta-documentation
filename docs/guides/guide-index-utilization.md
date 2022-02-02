@@ -13,7 +13,7 @@ netfwsystem | opnsense, opnsense:cron, opnsense:system, opnsense:syslog
 netids | opnsense:suricata, opnsense:suricata:json
 netproxy | opnsense:squid, opnsense:lighttpd
 
-New indexes can be created through configuration files or through Splunk web. See [Splunk Docs: Create events indexes](https://docs.splunk.com/Documentation/Splunk/latest/Indexer/Setupmultipleindexes#Create_events_indexes_2) for more information. 
+New indexes can be created through configuration files or through Splunk web. See [Splunk Docs: Create events indexes](https://docs.splunk.com/Documentation/Splunk/latest/Indexer/Setupmultipleindexes#Create_events_indexes_2) for more information.
 
 This guide walks through the following steps to utilize created indexes:
 
@@ -29,8 +29,8 @@ If you followed the the guide for [Syslog Setup](../guide-syslog) then you shoul
 ### Configure inputs
 
 ??? example "inputs.conf example"
-    ```shell
-    # inputs.conf
+
+    ```cfg title="inputs.conf"
     [monitor:///var/log/remote/opnsense/*/filterlog.log]
     disabled = 0
     host_segment = 5
@@ -98,20 +98,24 @@ The following changes will need to be made on the indexers.
 1. Create a transforms statement for the `opnsense` sourcetype. This should be the sourcetype set in the inputs.conf file (see [Configure Inputs](../../getting-started/configure-inputs/configure-inputs#splunk-universal-forwarder-configuration)) for more information.
 
     !!! example ""
-        ```shell
+
+        ```cfg title="$SPLUNK_HOME/etc/apps/TA-opnsense/localprops.conf"
         [opnsense]
-        TRANSFORMS-z_opn_change_index = opn_change_index 
+        TRANSFORMS-z_opn_change_index = opn_change_index
         ```
-        Notice the "z" at the beginning of the name (TRANSFORMS-`z`_opn_change_index). This will cause this transform to run later in the index operations. This is important because this add-on utilizes a sourcetype transforms that must run before this transform. 
+
+        Notice the "z" at the beginning of the name (TRANSFORMS-`z`_opn_change_index). This will cause this transform to run later in the index operations. This is important because this add-on utilizes a sourcetype transforms that must run before this transform.
 
 1. Now a transform will need to be created at $SPLUNK_HOME/etc/apps/TA-opnsense/local/transforms.conf. This file may have to be created.
 1. Create an `INGEST_EVAL` statement changing the data to the correct index based off the sourcetype.
 
     !!! example ""
-        ```shell
+
+        ```cfg title="$SPLUNK_HOME/etc/apps/TA-opnsense/local/transforms.conf"
         [opn_change_index] # this name MUST match the name in props.conf
         INGEST_EVAL = index=case(match(sourcetype, "dhcpd"), "netdhcp", match(sourcetype, "lighttpd|squid"), "netproxy", match(sourcetype, "access"), "netauth", match(sourcetype, "suricata"), "netids" , match(sourcetype, "cron|system|syslog|opnsense$"), "netfwsystem" , true(), index)
         ```
+
         This uses a case statement to perform a regex match on the sourcetype to then change to the appropriate index. Note that the match statement does not have to be used here and a simple `sourcetype=="opnsense:dhcpd"` statement could be used.
 
 1. After you finish making the appropriate changes to the INGEST_EVAL command, splunk will need to be restarted for the changes to take affect.
@@ -122,6 +126,7 @@ The following changes will need to be made on the indexers.
 Ensure that you ingest_eval command works by pasting it in to Splunk web using an eval statement replacing `index` with another name.
 
 !!! example
+
     ```shell
     index=* sourcetype=opnsense*
     | eval test=case(match(sourcetype, "dhcpd"), "netdhcp", match(sourcetype, "lighttpd|squid"), "netproxy", match(sourcetype, "access"), "netauth", match(sourcetype, "suricata"), "netids" , match(sourcetype, "cron|system|syslog|opnsense$"), "netfwsystem" , true(), index)
@@ -131,6 +136,5 @@ Ensure that you ingest_eval command works by pasting it in to Splunk web using a
 If there are no errors and the command works as expected, be sure that splunk was restarted. `$SPLUNK_HOME/bin/splunk btool check` can also be run to see if there are any errors in the configuration file.
 
 If there are no errors, check the spelling in the props.conf and transforms.conf for the name given. The name set in props.conf must match the stanza in transforms.conf.
-
 
 --8<-- "includes/abbreviations.md"
