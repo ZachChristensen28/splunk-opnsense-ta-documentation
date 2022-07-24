@@ -24,8 +24,8 @@ This documentation assumes the following:
 
 Info | Description
 ------|----------
-Version | 1.5.1 - [Splunkbase](https://splunkbase.splunk.com/app/4538/) \| [GitHub](https://github.com/ZachChristensen28/TA-opnsense)
-CIM | 4.x
+Version | 1.5.2 - [Splunkbase](https://splunkbase.splunk.com/app/4538/) \| [GitHub](https://github.com/ZachChristensen28/TA-opnsense)
+CIM | 5.x, 4.x
 Vendor Product Version | [OPNsense® 22.x](https://opnsense.org/)
 
 [Get Started](getting-started/logging-architecture){ .md-button .md-button--primary }
